@@ -13,6 +13,7 @@ import {
     View,
 } from "react-native";
 import { api } from "../convex/_generated/api";
+import { Eye, EyeOff, Rocket, Sparkles } from 'lucide-react-native';
 
 // Web için alert fonksiyonu
 const showAlert = (title: string, message: string, buttons?: { text: string; onPress?: () => void }[]) => {
@@ -169,7 +170,7 @@ export default function AuthScreen() {
                 style={styles.eyeButton}
                 onPress={() => setShowPassword(!showPassword)}
               >
-                <Text style={styles.eyeIcon}>{showPassword ? "👁️" : "👁️‍🗨️"}</Text>
+                {showPassword ? <Eye color="gray" size={20} /> : <EyeOff color="gray" size={20} />}
               </TouchableOpacity>
             </View>
 
@@ -178,9 +179,14 @@ export default function AuthScreen() {
               onPress={handleLogin}
               disabled={isLoading}
             >
-              <Text style={styles.buttonText}>
-                {isLoading ? "Yükleniyor... ⏳" : "Giriş Yap 🚀"}
-              </Text>
+              {isLoading ? (
+                <Text style={styles.buttonText}>Yükleniyor... </Text>
+              ) : (
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                  <Text style={styles.buttonText}>Giriş Yap</Text>
+                  <Rocket size={16} color="#fff" />
+                </View>
+              )}
             </TouchableOpacity>
           </>
         ) : (
@@ -217,7 +223,7 @@ export default function AuthScreen() {
                 style={styles.eyeButton}
                 onPress={() => setShowPassword(!showPassword)}
               >
-                <Text style={styles.eyeIcon}>{showPassword ? "👁️" : "👁️‍🗨️"}</Text>
+                {showPassword ? <Eye color="gray" size={20} /> : <EyeOff color="gray" size={20} />}
               </TouchableOpacity>
             </View>
 
@@ -226,9 +232,14 @@ export default function AuthScreen() {
               onPress={handleSignup}
               disabled={isLoading}
             >
-              <Text style={styles.buttonText}>
-                {isLoading ? "Yükleniyor... ⏳" : "Kayıt Ol 🎉"}
-              </Text>
+              {isLoading ? (
+                <Text style={styles.buttonText}>Yükleniyor... </Text>
+              ) : (
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                  <Text style={styles.buttonText}>Kayıt Ol</Text>
+                  <Sparkles size={16} color="#fff" />
+                </View>
+              )}
             </TouchableOpacity>
           </>
         )}
@@ -248,17 +259,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   title: {
-    fontSize: 48,
-    fontWeight: "bold",
+    fontSize: 36, // Büyütüldü
+    fontWeight: "800",
     color: "#fff",
-    textAlign: "center",
     marginBottom: 8,
   },
   subtitle: {
-    fontSize: 16,
-    color: "#666",
-    textAlign: "center",
-    marginBottom: 48,
+    fontSize: 18,
+    color: "#bbb", // Kontrast artırıldı
+    marginBottom: 40,
   },
   modeSelector: {
     flexDirection: "row",
@@ -285,23 +294,24 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   input: {
-    backgroundColor: "#111",
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
-    fontSize: 16,
-    color: "#fff",
+    width: "100%",
+    backgroundColor: "#1a1a1a",
     borderWidth: 1,
-    borderColor: "#222",
+    borderColor: "#333",
+    borderRadius: 12,
+    padding: 16, // Arttırıldı
+    color: "#fff",
+    marginBottom: 20,
+    fontSize: 16,
   },
   passwordContainer: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#111",
+    backgroundColor: "#1a1a1a",
     borderRadius: 12,
-    marginBottom: 16,
+    marginBottom: 20,
     borderWidth: 1,
-    borderColor: "#222",
+    borderColor: "#333",
   },
   passwordInput: {
     flex: 1,
@@ -312,45 +322,26 @@ const styles = StyleSheet.create({
   eyeButton: {
     padding: 16,
   },
-  eyeIcon: {
-    fontSize: 20,
-  },
-  roleSelector: {
-    flexDirection: "row",
-    gap: 8,
-    marginBottom: 24,
-  },
-  roleButton: {
-    flex: 1,
-    paddingVertical: 12,
-    borderRadius: 8,
-    backgroundColor: "#111",
-    alignItems: "center",
-  },
-  roleButtonActive: {
-    backgroundColor: "#fff",
-  },
-  roleText: {
-    color: "#666",
-    fontSize: 14,
-    fontWeight: "600",
-  },
-  roleTextActive: {
-    color: "#000",
-  },
   button: {
-    backgroundColor: "#fff",
+    width: "100%",
+    backgroundColor: "#4CAF50",
     borderRadius: 12,
-    padding: 16,
+    paddingVertical: 16, // Arttırıldı
     alignItems: "center",
+    marginTop: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 8,
   },
   buttonDisabled: {
     backgroundColor: "#666",
     opacity: 0.6,
   },
   buttonText: {
-    color: "#000",
-    fontSize: 16,
-    fontWeight: "bold",
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "700", // Kontrast artırıldı
   },
 });

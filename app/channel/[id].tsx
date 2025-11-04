@@ -12,6 +12,7 @@ import {
     TouchableOpacity,
     View,
 } from "react-native";
+import { MessageCircle, Utensils, AlertCircle } from 'lucide-react-native';
 import type { Id } from "../../convex/_generated/dataModel";
 
 export default function ChannelScreen() {
@@ -91,15 +92,15 @@ export default function ChannelScreen() {
   const getChannelIcon = (type: string) => {
     switch (type) {
       case "general":
-        return "💬";
+        return <MessageCircle size={24} color="#fff" />;
       case "kitchen":
-        return "🍳";
+        return <Utensils size={24} color="#fff" />;
       case "service":
-        return "🍽️";
+        return <Utensils size={24} color="#fff" />;
       case "urgent":
-        return "🚨";
+        return <AlertCircle size={24} color="#fff" />;
       default:
-        return "📢";
+        return <MessageCircle size={24} color="#fff" />;
     }
   };
 
@@ -113,7 +114,7 @@ export default function ChannelScreen() {
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
           <Text style={styles.backText}>‹</Text>
         </TouchableOpacity>
-        <Text style={styles.channelIcon}>{getChannelIcon(channel.type)}</Text>
+        {getChannelIcon(channel.type)}
         <Text style={styles.channelName}>{channel.name}</Text>
       </View>
 
@@ -229,10 +230,16 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 16,
-    paddingTop: 60,
+    paddingVertical: 20,
+    paddingHorizontal: 16,
+    backgroundColor: "#111",
     borderBottomWidth: 1,
     borderBottomColor: "#222",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 8,
   },
   backButton: {
     marginRight: 12,
@@ -247,9 +254,10 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   channelName: {
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 24,
+    fontWeight: "700",
     color: "#fff",
+    marginLeft: 12,
   },
   messagesList: {
     padding: 16,
@@ -382,4 +390,3 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-

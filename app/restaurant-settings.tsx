@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import { api } from "../convex/_generated/api";
 import { Id } from "../convex/_generated/dataModel";
+import { Sparkles, Trash2, Plus } from 'lucide-react-native';
 
 const showAlert = (title: string, message: string, buttons?: { text: string; onPress?: () => void }[]) => {
   if (Platform.OS === "web") {
@@ -362,9 +363,10 @@ export default function RestaurantSettingsScreen() {
               onPress={handleCreateDefaults}
               disabled={isLoading}
             >
-              <Text style={styles.defaultButtonText}>
-                ✨ Varsayılan Türleri Oluştur
-              </Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                <Sparkles size={16} color="#fff" />
+                <Text style={styles.defaultButtonText}>Varsayılan Türleri Oluştur</Text>
+              </View>
             </Pressable>
           )}
 
@@ -395,7 +397,7 @@ export default function RestaurantSettingsScreen() {
                     ]}
                     onPress={() => handleRemoveType(type._id)}
                   >
-                    <Text style={styles.removeTypeButtonText}>🗑️</Text>
+                    <Trash2 size={16} color="#fff" />
                   </Pressable>
                 </View>
               ))}
@@ -445,7 +447,10 @@ export default function RestaurantSettingsScreen() {
               onPress={handleAddType}
               disabled={isLoading}
             >
-              <Text style={styles.addButtonText}>➕ Ekle</Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                <Plus size={16} color="#fff" />
+                <Text style={styles.addButtonText}>Ekle</Text>
+              </View>
             </Pressable>
           </View>
         </View>
@@ -512,10 +517,16 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: "#1a1a1a",
-    borderRadius: 12,
-    padding: 16,
+    borderRadius: 16,
+    padding: 24,
+    marginBottom: 24,
     borderWidth: 1,
     borderColor: "#222",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 8,
   },
   cardTitle: {
     fontSize: 16,
@@ -524,14 +535,12 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   input: {
-    backgroundColor: "#252525",
-    borderRadius: 8,
-    padding: 12,
+    backgroundColor: "#222",
+    borderRadius: 12,
+    padding: 16,
     color: "#fff",
+    marginBottom: 20,
     fontSize: 16,
-    marginBottom: 12,
-    borderWidth: 1,
-    borderColor: "#333",
   },
   button: {
     paddingVertical: 12,
@@ -613,10 +622,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   memberName: {
-    color: "#fff",
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: "600",
-    marginBottom: 4,
+    color: "#fff",
   },
   memberEmail: {
     color: "#999",
@@ -741,4 +749,3 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
 });
-

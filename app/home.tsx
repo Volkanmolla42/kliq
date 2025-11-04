@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { api } from "../convex/_generated/api";
 import { Id } from "../convex/_generated/dataModel";
+import { Users, Bell, AlertCircle, MessageCircle } from 'lucide-react-native';
 
 export default function HomeScreen() {
   const [userId, setUserId] = useState<Id<"users"> | null>(null);
@@ -206,7 +207,7 @@ export default function HomeScreen() {
           onPress={() => setActiveTab("home")}
         >
           <Text style={[styles.tabText, activeTab === "home" && styles.activeTabText]}>
-            👥 Ekip
+            <Users size={16} color={activeTab === "home" ? "#fff" : "#666"} /> Ekip
           </Text>
         </Pressable>
         <Pressable
@@ -214,7 +215,7 @@ export default function HomeScreen() {
           onPress={() => setActiveTab("notifications")}
         >
           <Text style={[styles.tabText, activeTab === "notifications" && styles.activeTabText]}>
-            🔔 Bildirimler
+            <Bell size={16} color={activeTab === "notifications" ? "#fff" : "#666"} /> Bildirimler
           </Text>
           {unreadCount !== undefined && unreadCount > 0 && (
             <View style={styles.tabBadge}>
@@ -310,7 +311,9 @@ export default function HomeScreen() {
                   style={[styles.typeButton, { backgroundColor: type.color }]}
                   onPress={() => handleSendNotification(type)}
                 >
-                  <Text style={styles.typeIcon}>{type.icon}</Text>
+                  <Text style={styles.typeIcon}>
+                    {type.icon === 'message-circle' ? <MessageCircle size={16} color="#fff" /> : <AlertCircle size={16} color="#fff" />}
+                  </Text>
                   <Text style={styles.typeTitle}>{type.title}</Text>
                 </Pressable>
               ))}
@@ -351,25 +354,57 @@ const styles = StyleSheet.create({
   tabs: { flexDirection: "row", backgroundColor: "#111", borderBottomWidth: 1, borderBottomColor: "#222" },
   tab: { flex: 1, paddingVertical: 16, alignItems: "center", position: "relative" },
   activeTab: { borderBottomWidth: 3, borderBottomColor: "#4CAF50" },
-  tabText: { fontSize: 16, fontWeight: "600", color: "#666" },
+  tabText: { fontSize: 16, fontWeight: "600", color: "#666", flexDirection: "row", alignItems: "center", gap: 4 },
   activeTabText: { color: "#fff" },
   tabBadge: { position: "absolute", top: 8, right: "30%", backgroundColor: "#E91E63", borderRadius: 10, paddingHorizontal: 6, paddingVertical: 2, minWidth: 20, alignItems: "center" },
   tabBadgeText: { color: "#fff", fontSize: 11, fontWeight: "700" },
   scrollView: { flex: 1 },
   membersContainer: { padding: 20, gap: 16 },
-  memberCard: { backgroundColor: "#1a1a1a", borderRadius: 16, padding: 20, borderWidth: 1, borderColor: "#222" },
+  memberCard: {
+    backgroundColor: "#1a1a1a",
+    borderRadius: 16,
+    padding: 24,
+    borderWidth: 1,
+    borderColor: "#222",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 8,
+  },
   memberCardPressed: { backgroundColor: "#252525", transform: [{ scale: 0.98 }] },
   memberCardHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 12 },
-  memberName: { fontSize: 20, fontWeight: "700", color: "#fff" },
+  memberName: {
+    fontSize: 22,
+    fontWeight: "700",
+    color: "#fff",
+    marginBottom: 6,
+  },
   onlineDot: { width: 10, height: 10, borderRadius: 5, backgroundColor: "#4CAF50" },
   memberRoleBadge: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: 8, alignSelf: "flex-start", marginBottom: 8 },
   memberRoleText: { color: "#fff", fontSize: 12, fontWeight: "700", textTransform: "uppercase" },
   memberEmail: { fontSize: 14, color: "#999" },
   notificationsContainer: { padding: 20, gap: 12 },
-  notificationCard: { backgroundColor: "#1a1a1a", borderRadius: 12, padding: 16, borderWidth: 1, borderColor: "#222" },
+  notificationCard: {
+    backgroundColor: "#1a1a1a",
+    borderRadius: 16,
+    padding: 20,
+    borderWidth: 1,
+    borderColor: "#222",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 6,
+  },
   unreadNotificationCard: { backgroundColor: "#252525", borderLeftWidth: 4, borderLeftColor: "#4CAF50" },
   notificationHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 8 },
-  notificationTitle: { fontSize: 16, fontWeight: "700", color: "#fff", flex: 1 },
+  notificationTitle: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#fff",
+    flex: 1,
+  },
   unreadDot: { width: 8, height: 8, borderRadius: 4, backgroundColor: "#4CAF50" },
   notificationFrom: { fontSize: 14, color: "#999", marginBottom: 4 },
   notificationTime: { fontSize: 12, color: "#666" },
@@ -384,4 +419,3 @@ const styles = StyleSheet.create({
   typeIcon: { fontSize: 24 },
   typeTitle: { fontSize: 16, fontWeight: "700", color: "#fff", flex: 1 },
 });
-
