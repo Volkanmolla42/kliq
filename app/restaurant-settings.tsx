@@ -15,6 +15,7 @@ import {
 import { api } from "../convex/_generated/api";
 import { Id } from "../convex/_generated/dataModel";
 import { Sparkles, Trash2, Plus } from 'lucide-react-native';
+import { colors, spacing, typography, borderRadius } from "../utils/designSystem";
 
 const showAlert = (title: string, message: string, buttons?: { text: string; onPress?: () => void }[]) => {
   if (Platform.OS === "web") {
@@ -34,7 +35,7 @@ export default function RestaurantSettingsScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const [newTypeTitle, setNewTypeTitle] = useState("");
   const [newTypeIcon, setNewTypeIcon] = useState("");
-  const [newTypeColor, setNewTypeColor] = useState("#4CAF50");
+  const [newTypeColor, setNewTypeColor] = useState(colors.success);
 
   const restaurant = useQuery(
     api.restaurantManagement.getRestaurant,
@@ -171,7 +172,7 @@ export default function RestaurantSettingsScreen() {
         showAlert("Başarılı!", "Bildirim türü eklendi");
         setNewTypeTitle("");
         setNewTypeIcon("");
-        setNewTypeColor("#4CAF50");
+        setNewTypeColor(colors.success);
       } else {
         showAlert("Hata", result.error || "Bildirim türü eklenemedi");
       }
@@ -237,7 +238,7 @@ export default function RestaurantSettingsScreen() {
             <TextInput
               style={styles.input}
               placeholder="Salon adı"
-              placeholderTextColor="#666"
+              placeholderTextColor={colors.placeholder}
               value={newName}
               onChangeText={setNewName}
               editable={!isLoading}
@@ -314,9 +315,9 @@ export default function RestaurantSettingsScreen() {
                         {
                           backgroundColor:
                             member.role === "owner"
-                              ? "#4CAF50"
+                              ? colors.success
                               : member.role === "manager"
-                              ? "#2196F3"
+                              ? colors.primary
                               : member.role === "kitchen"
                               ? "#FF9800"
                               : member.role === "bar"
@@ -364,7 +365,7 @@ export default function RestaurantSettingsScreen() {
               disabled={isLoading}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-                <Sparkles size={16} color="#fff" />
+                <Sparkles size={16} color={colors.text} />
                 <Text style={styles.defaultButtonText}>Varsayılan Türleri Oluştur</Text>
               </View>
             </Pressable>
@@ -397,7 +398,7 @@ export default function RestaurantSettingsScreen() {
                     ]}
                     onPress={() => handleRemoveType(type._id)}
                   >
-                    <Trash2 size={16} color="#fff" />
+                    <Trash2 size={16} color={colors.text} />
                   </Pressable>
                 </View>
               ))}
@@ -410,21 +411,21 @@ export default function RestaurantSettingsScreen() {
             <TextInput
               style={styles.input}
               placeholder="Başlık (örn: Moladayım)"
-              placeholderTextColor="#666"
+              placeholderTextColor={colors.placeholder}
               value={newTypeTitle}
               onChangeText={setNewTypeTitle}
             />
             <TextInput
               style={styles.input}
               placeholder="İkon (emoji, örn: ☕)"
-              placeholderTextColor="#666"
+              placeholderTextColor={colors.placeholder}
               value={newTypeIcon}
               onChangeText={setNewTypeIcon}
             />
             <View style={styles.colorPicker}>
               <Text style={styles.colorLabel}>Renk:</Text>
               <View style={styles.colorOptions}>
-                {["#4CAF50", "#2196F3", "#F44336", "#FF9800", "#9C27B0", "#607D8B"].map(
+                {[colors.success, colors.primary, colors.error, "#FF9800", "#9C27B0", "#607D8B"].map(
                   (color) => (
                     <Pressable
                       key={color}
@@ -448,7 +449,7 @@ export default function RestaurantSettingsScreen() {
               disabled={isLoading}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-                <Plus size={16} color="#fff" />
+                <Plus size={16} color={colors.text} />
                 <Text style={styles.addButtonText}>Ekle</Text>
               </View>
             </Pressable>
@@ -462,7 +463,7 @@ export default function RestaurantSettingsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0a0a0a",
+    backgroundColor: colors.background,
   },
   loadingContainer: {
     flex: 1,
@@ -470,58 +471,57 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   loadingText: {
-    color: "#fff",
+    color: colors.text,
     fontSize: 16,
   },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: spacing.lg,
     paddingTop: Platform.OS === "ios" ? 60 : 40,
-    paddingBottom: 20,
-    backgroundColor: "#111",
+    paddingBottom: spacing.lg,
+    backgroundColor: colors.surface,
     borderBottomWidth: 1,
-    borderBottomColor: "#222",
+    borderBottomColor: colors.border,
   },
   backButton: {
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    backgroundColor: "#222",
-    borderRadius: 8,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    backgroundColor: colors.surface,
+    borderRadius: borderRadius.sm,
   },
   backButtonText: {
-    color: "#fff",
+    color: colors.text,
     fontSize: 14,
     fontWeight: "600",
   },
   headerTitle: {
-    fontSize: 20,
-    fontWeight: "800",
-    color: "#fff",
+    ...typography.h3,
+    color: colors.text,
   },
   scrollView: {
     flex: 1,
   },
   section: {
-    paddingHorizontal: 20,
-    paddingVertical: 24,
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.lg,
     borderBottomWidth: 1,
-    borderBottomColor: "#222",
+    borderBottomColor: colors.border,
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: "700",
-    color: "#fff",
-    marginBottom: 16,
+    color: colors.text,
+    marginBottom: spacing.md,
   },
   card: {
-    backgroundColor: "#1a1a1a",
-    borderRadius: 16,
-    padding: 24,
-    marginBottom: 24,
+    backgroundColor: colors.surface,
+    borderRadius: borderRadius.lg,
+    padding: spacing.lg,
+    marginBottom: spacing.lg,
     borderWidth: 1,
-    borderColor: "#222",
+    borderColor: colors.border,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
@@ -531,28 +531,28 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 16,
     fontWeight: "700",
-    color: "#fff",
-    marginBottom: 12,
+    color: colors.text,
+    marginBottom: spacing.md,
   },
   input: {
-    backgroundColor: "#222",
-    borderRadius: 12,
-    padding: 16,
-    color: "#fff",
-    marginBottom: 20,
-    fontSize: 16,
+    backgroundColor: colors.background,
+    borderRadius: borderRadius.md,
+    padding: spacing.md,
+    color: colors.text,
+    marginBottom: spacing.lg,
+    ...typography.input,
   },
   button: {
-    paddingVertical: 12,
-    borderRadius: 8,
+    paddingVertical: spacing.md,
+    borderRadius: borderRadius.sm,
     alignItems: "center",
-    marginTop: 12,
+    marginTop: spacing.md,
   },
   primaryButton: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: colors.primary,
   },
   secondaryButton: {
-    backgroundColor: "#2196F3",
+    backgroundColor: colors.secondary,
   },
   buttonDisabled: {
     opacity: 0.5,
@@ -561,50 +561,49 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "700",
+    color: colors.text,
+    ...typography.button,
   },
   codeContainer: {
-    backgroundColor: "#252525",
-    borderRadius: 8,
-    padding: 16,
-    marginBottom: 12,
+    backgroundColor: colors.background,
+    borderRadius: borderRadius.sm,
+    padding: spacing.md,
+    marginBottom: spacing.md,
     alignItems: "center",
   },
   codeLabel: {
-    color: "#999",
+    color: colors.textSecondary,
     fontSize: 12,
-    marginBottom: 8,
+    marginBottom: spacing.sm,
     fontWeight: "600",
   },
   code: {
-    color: "#fff",
+    color: colors.text,
     fontSize: 28,
     fontWeight: "800",
     letterSpacing: 2,
   },
   codeDescription: {
-    color: "#999",
+    color: colors.textSecondary,
     fontSize: 13,
-    marginBottom: 12,
+    marginBottom: spacing.md,
     lineHeight: 18,
   },
   infoRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: 12,
+    paddingVertical: spacing.md,
     borderBottomWidth: 1,
-    borderBottomColor: "#222",
+    borderBottomColor: colors.border,
   },
   infoLabel: {
-    color: "#999",
+    color: colors.textSecondary,
     fontSize: 14,
     fontWeight: "600",
   },
   infoValue: {
-    color: "#fff",
+    color: colors.text,
     fontSize: 14,
     fontWeight: "500",
   },
@@ -612,11 +611,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: 12,
+    paddingVertical: spacing.md,
   },
   memberRowBorder: {
     borderBottomWidth: 1,
-    borderBottomColor: "#222",
+    borderBottomColor: colors.border,
   },
   memberInfo: {
     flex: 1,
@@ -624,24 +623,24 @@ const styles = StyleSheet.create({
   memberName: {
     fontSize: 18,
     fontWeight: "600",
-    color: "#fff",
+    color: colors.text,
   },
   memberEmail: {
-    color: "#999",
+    color: colors.textSecondary,
     fontSize: 13,
   },
   memberMeta: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
+    gap: spacing.sm,
   },
   memberRoleBadge: {
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 12,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.xs,
+    borderRadius: borderRadius.md,
   },
   memberRoleText: {
-    color: "#fff",
+    color: colors.text,
     fontSize: 11,
     fontWeight: "700",
     textTransform: "uppercase",
@@ -650,42 +649,41 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: "#4CAF50",
+    backgroundColor: colors.success,
   },
   emptyMembers: {
-    color: "#666",
+    color: colors.textSecondary,
     fontSize: 14,
     textAlign: "center",
-    paddingVertical: 20,
+    paddingVertical: spacing.lg,
     fontStyle: "italic",
   },
   defaultButton: {
-    backgroundColor: "#4CAF50",
-    borderRadius: 12,
-    padding: 16,
+    backgroundColor: colors.primary,
+    borderRadius: borderRadius.md,
+    padding: spacing.md,
     alignItems: "center",
-    marginBottom: 16,
+    marginBottom: spacing.md,
   },
   defaultButtonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "700",
+    color: colors.text,
+    ...typography.button,
   },
   typeRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: 12,
+    paddingVertical: spacing.md,
   },
   typeRowBorder: {
     borderBottomWidth: 1,
-    borderBottomColor: "#222",
+    borderBottomColor: colors.border,
   },
   typeLeft: {
     flexDirection: "row",
     alignItems: "center",
     flex: 1,
-    gap: 12,
+    gap: spacing.md,
   },
   typeIcon: {
     fontSize: 24,
@@ -694,10 +692,10 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
+    gap: spacing.md,
   },
   typeTitle: {
-    color: "#fff",
+    color: colors.text,
     fontSize: 16,
     fontWeight: "600",
     flex: 1,
@@ -708,23 +706,23 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   removeTypeButton: {
-    padding: 8,
+    padding: spacing.sm,
   },
   removeTypeButtonText: {
     fontSize: 20,
   },
   colorPicker: {
-    marginBottom: 16,
+    marginBottom: spacing.md,
   },
   colorLabel: {
-    color: "#fff",
+    color: colors.text,
     fontSize: 14,
     fontWeight: "600",
-    marginBottom: 8,
+    marginBottom: spacing.sm,
   },
   colorOptions: {
     flexDirection: "row",
-    gap: 12,
+    gap: spacing.md,
   },
   colorOption: {
     width: 40,
@@ -734,18 +732,17 @@ const styles = StyleSheet.create({
     borderColor: "transparent",
   },
   colorOptionSelected: {
-    borderColor: "#fff",
+    borderColor: colors.text,
     borderWidth: 3,
   },
   addButton: {
-    backgroundColor: "#2196F3",
-    borderRadius: 12,
-    padding: 16,
+    backgroundColor: colors.primary,
+    borderRadius: borderRadius.md,
+    padding: spacing.md,
     alignItems: "center",
   },
   addButtonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "700",
+    color: colors.text,
+    ...typography.button,
   },
 });

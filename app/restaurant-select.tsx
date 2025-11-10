@@ -16,6 +16,7 @@ import {
 } from "react-native";
 import { api } from "../convex/_generated/api";
 import { Id } from "../convex/_generated/dataModel";
+import { colors, spacing, typography, borderRadius } from "../utils/designSystem";
 
 const showAlert = (title: string, message: string, buttons?: { text: string; onPress?: () => void }[]) => {
   if (Platform.OS === "web") {
@@ -147,7 +148,7 @@ export default function RestaurantSelectScreen() {
                 <Text style={styles.restaurantName}>{restaurant.name}</Text>
                 <Text style={styles.restaurantCode}>Kod: {restaurant.inviteCode}</Text>
                 <View style={styles.restaurantMeta}>
-                  <View style={[styles.roleBadge, { backgroundColor: restaurant.isOwner ? "#4CAF50" : "#2196F3" }]}>
+                  <View style={[styles.roleBadge, { backgroundColor: restaurant.isOwner ? colors.success : colors.primary }]}>
                     <Text style={styles.roleBadgeText}>
                       {restaurant.role === "owner"
                         ? "Sahip"
@@ -182,7 +183,7 @@ export default function RestaurantSelectScreen() {
           style={[styles.actionButton, styles.actionButtonSecondary]}
           onPress={() => setJoinModalVisible(true)}
         >
-          <Text style={styles.actionButtonText}>🔑 Davet Koduyla Katıl</Text>
+          <Text style={[styles.actionButtonText, { color: colors.text }]}>🔑 Davet Koduyla Katıl</Text>
         </TouchableOpacity>
       </View>
 
@@ -196,7 +197,7 @@ export default function RestaurantSelectScreen() {
               placeholder="Restoran Adı"
               value={restaurantName}
               onChangeText={setRestaurantName}
-              placeholderTextColor="#999"
+              placeholderTextColor={colors.placeholder}
             />
             <View style={styles.modalButtons}>
               <TouchableOpacity
@@ -225,7 +226,7 @@ export default function RestaurantSelectScreen() {
               onChangeText={(text) => setInviteCode(text.toUpperCase())}
               autoCapitalize="characters"
               maxLength={6}
-              placeholderTextColor="#999"
+              placeholderTextColor={colors.placeholder}
             />
             <Text style={styles.roleLabel}>Rolünüz:</Text>
             <View style={styles.roleSelector}>
@@ -268,86 +269,84 @@ export default function RestaurantSelectScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0a0a0a",
+    backgroundColor: colors.background,
   },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 24,
+    padding: spacing.lg,
     paddingTop: Platform.OS === "ios" ? 60 : 40,
-    backgroundColor: "#111",
+    backgroundColor: colors.surface,
     borderBottomWidth: 1,
-    borderBottomColor: "#222",
+    borderBottomColor: colors.border,
   },
   title: {
-    fontSize: 28,
-    fontWeight: "800",
-    color: "#fff",
+    ...typography.h2,
+    color: colors.text,
   },
   logoutButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 8,
-    backgroundColor: "#222",
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    borderRadius: borderRadius.sm,
+    backgroundColor: colors.surface,
   },
   logoutText: {
-    color: "#fff",
+    color: colors.text,
     fontSize: 14,
     fontWeight: "600",
   },
   scrollView: {
     flex: 1,
-    padding: 24,
+    padding: spacing.lg,
   },
   restaurantCard: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "#1a1a1a",
-    borderRadius: 16,
-    padding: 20,
-    marginBottom: 16,
+    backgroundColor: colors.surface,
+    borderRadius: borderRadius.lg,
+    padding: spacing.md,
+    marginBottom: spacing.md,
     borderWidth: 1,
-    borderColor: "#222",
+    borderColor: colors.border,
   },
   restaurantInfo: {
     flex: 1,
   },
   restaurantName: {
-    fontSize: 20,
-    fontWeight: "700",
-    color: "#fff",
-    marginBottom: 8,
+    ...typography.h3,
+    color: colors.text,
+    marginBottom: spacing.sm,
   },
   restaurantCode: {
     fontSize: 14,
-    color: "#999",
-    marginBottom: 12,
+    color: colors.textSecondary,
+    marginBottom: spacing.md,
   },
   restaurantMeta: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
+    gap: spacing.md,
   },
   roleBadge: {
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    borderRadius: 12,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.xs,
+    borderRadius: borderRadius.md,
   },
   roleBadgeText: {
-    color: "#fff",
+    color: colors.text,
     fontSize: 12,
     fontWeight: "600",
     textTransform: "uppercase",
   },
   memberCount: {
     fontSize: 13,
-    color: "#666",
+    color: colors.textSecondary,
   },
   arrow: {
     fontSize: 24,
-    color: "#666",
+    color: colors.textSecondary,
   },
   emptyState: {
     alignItems: "center",
@@ -355,33 +354,32 @@ const styles = StyleSheet.create({
     paddingVertical: 60,
   },
   emptyText: {
-    fontSize: 18,
+    ...typography.body,
     fontWeight: "600",
-    color: "#666",
-    marginBottom: 8,
+    color: colors.textSecondary,
+    marginBottom: spacing.sm,
   },
   emptySubtext: {
     fontSize: 14,
-    color: "#444",
+    color: colors.placeholder,
     textAlign: "center",
   },
   actions: {
-    padding: 24,
-    gap: 12,
+    padding: spacing.lg,
+    gap: spacing.md,
   },
   actionButton: {
-    backgroundColor: "#fff",
-    borderRadius: 12,
-    padding: 16,
+    backgroundColor: colors.primary,
+    borderRadius: borderRadius.md,
+    padding: spacing.md,
     alignItems: "center",
   },
   actionButtonSecondary: {
-    backgroundColor: "#222",
+    backgroundColor: colors.surface,
   },
   actionButtonText: {
-    fontSize: 16,
-    fontWeight: "700",
-    color: "#000",
+    ...typography.button,
+    color: colors.text,
   },
   modalOverlay: {
     flex: 1,
@@ -390,84 +388,81 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalContent: {
-    backgroundColor: "#1a1a1a",
-    borderRadius: 24,
-    padding: 24,
+    backgroundColor: colors.surface,
+    borderRadius: borderRadius.lg,
+    padding: spacing.lg,
     width: "90%",
     maxWidth: 400,
   },
   modalTitle: {
-    fontSize: 22,
-    fontWeight: "700",
-    color: "#fff",
-    marginBottom: 20,
+    ...typography.h3,
+    color: colors.text,
+    marginBottom: spacing.lg,
   },
   modalInput: {
-    backgroundColor: "#111",
-    borderRadius: 12,
-    padding: 16,
-    fontSize: 16,
-    color: "#fff",
-    marginBottom: 16,
+    backgroundColor: colors.background,
+    borderRadius: borderRadius.md,
+    padding: spacing.md,
+    ...typography.input,
+    color: colors.text,
+    marginBottom: spacing.md,
     borderWidth: 1,
-    borderColor: "#222",
+    borderColor: colors.border,
   },
   roleLabel: {
     fontSize: 14,
-    color: "#999",
-    marginBottom: 12,
+    color: colors.textSecondary,
+    marginBottom: spacing.md,
   },
   roleSelector: {
     flexDirection: "row",
-    gap: 8,
-    marginBottom: 24,
+    gap: spacing.sm,
+    marginBottom: spacing.lg,
     flexWrap: "wrap",
   },
   roleButton: {
     flex: 1,
     minWidth: "45%",
-    paddingVertical: 12,
-    borderRadius: 8,
-    backgroundColor: "#111",
+    paddingVertical: spacing.md,
+    borderRadius: borderRadius.sm,
+    backgroundColor: colors.background,
     alignItems: "center",
     borderWidth: 1,
-    borderColor: "#222",
+    borderColor: colors.border,
   },
   roleButtonActive: {
-    backgroundColor: "#fff",
-    borderColor: "#fff",
+    backgroundColor: colors.primary,
+    borderColor: colors.primary,
   },
   roleText: {
-    color: "#666",
+    color: colors.textSecondary,
     fontSize: 14,
     fontWeight: "600",
   },
   roleTextActive: {
-    color: "#000",
+    color: colors.text,
   },
   modalButtons: {
     flexDirection: "row",
-    gap: 12,
+    gap: spacing.md,
   },
   modalButton: {
     flex: 1,
-    backgroundColor: "#fff",
-    borderRadius: 12,
-    padding: 16,
+    backgroundColor: colors.primary,
+    borderRadius: borderRadius.md,
+    padding: spacing.md,
     alignItems: "center",
   },
   modalButtonCancel: {
-    backgroundColor: "#222",
+    backgroundColor: colors.surface,
   },
   modalButtonText: {
-    color: "#000",
-    fontSize: 16,
-    fontWeight: "700",
+    color: colors.text,
+    ...typography.button,
   },
   modalButtonTextCancel: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "700",
+    color: colors.text,
+    ...typography.button,
   },
 });
 

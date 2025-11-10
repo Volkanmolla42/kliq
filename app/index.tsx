@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import { api } from "../convex/_generated/api";
 import { Eye, EyeOff, Rocket, Sparkles } from 'lucide-react-native';
+import { colors, spacing, typography, borderRadius } from "../utils/designSystem";
 
 // Web için alert fonksiyonu
 const showAlert = (title: string, message: string, buttons?: { text: string; onPress?: () => void }[]) => {
@@ -153,7 +154,7 @@ export default function AuthScreen() {
               onChangeText={setEmail}
               keyboardType="email-address"
               autoCapitalize="none"
-              placeholderTextColor="#999"
+              placeholderTextColor={colors.placeholder}
             />
 
             <View style={styles.passwordContainer}>
@@ -164,7 +165,7 @@ export default function AuthScreen() {
                 onChangeText={setPassword}
                 secureTextEntry={!showPassword}
                 autoCapitalize="none"
-                placeholderTextColor="#999"
+                placeholderTextColor={colors.placeholder}
               />
               <TouchableOpacity
                 style={styles.eyeButton}
@@ -184,7 +185,7 @@ export default function AuthScreen() {
               ) : (
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
                   <Text style={styles.buttonText}>Giriş Yap</Text>
-                  <Rocket size={16} color="#fff" />
+                  <Rocket size={16} color={colors.text} />
                 </View>
               )}
             </TouchableOpacity>
@@ -196,7 +197,7 @@ export default function AuthScreen() {
               placeholder="Adınız"
               value={name}
               onChangeText={setName}
-              placeholderTextColor="#999"
+              placeholderTextColor={colors.placeholder}
             />
 
             <TextInput
@@ -206,7 +207,7 @@ export default function AuthScreen() {
               onChangeText={setEmail}
               keyboardType="email-address"
               autoCapitalize="none"
-              placeholderTextColor="#999"
+              placeholderTextColor={colors.placeholder}
             />
 
             <View style={styles.passwordContainer}>
@@ -217,7 +218,7 @@ export default function AuthScreen() {
                 onChangeText={setPassword}
                 secureTextEntry={!showPassword}
                 autoCapitalize="none"
-                placeholderTextColor="#999"
+                placeholderTextColor={colors.placeholder}
               />
               <TouchableOpacity
                 style={styles.eyeButton}
@@ -237,7 +238,7 @@ export default function AuthScreen() {
               ) : (
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
                   <Text style={styles.buttonText}>Kayıt Ol</Text>
-                  <Sparkles size={16} color="#fff" />
+                  <Sparkles size={16} color={colors.text} />
                 </View>
               )}
             </TouchableOpacity>
@@ -251,97 +252,95 @@ export default function AuthScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor: colors.background,
   },
   content: {
     flex: 1,
-    padding: 24,
+    padding: spacing.lg,
     justifyContent: "center",
   },
   title: {
-    fontSize: 36, // Büyütüldü
-    fontWeight: "800",
-    color: "#fff",
-    marginBottom: 8,
+    ...typography.h1,
+    color: colors.text,
+    marginBottom: spacing.sm,
   },
   subtitle: {
-    fontSize: 18,
-    color: "#bbb", // Kontrast artırıldı
-    marginBottom: 40,
+    ...typography.body,
+    color: colors.textSecondary,
+    marginBottom: spacing.xl,
   },
   modeSelector: {
     flexDirection: "row",
-    marginBottom: 24,
-    backgroundColor: "#111",
-    borderRadius: 12,
-    padding: 4,
+    marginBottom: spacing.lg,
+    backgroundColor: colors.surface,
+    borderRadius: borderRadius.md,
+    padding: spacing.xs,
   },
   modeButton: {
     flex: 1,
-    paddingVertical: 12,
-    borderRadius: 8,
+    paddingVertical: spacing.md,
+    borderRadius: borderRadius.sm,
     alignItems: "center",
   },
   modeButtonActive: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.primary,
   },
   modeText: {
-    color: "#666",
-    fontSize: 16,
+    color: colors.textSecondary,
+    fontSize: typography.input.fontSize,
     fontWeight: "600",
   },
   modeTextActive: {
-    color: "#000",
+    color: colors.text,
   },
   input: {
     width: "100%",
-    backgroundColor: "#1a1a1a",
+    backgroundColor: colors.surface,
     borderWidth: 1,
-    borderColor: "#333",
-    borderRadius: 12,
-    padding: 16, // Arttırıldı
-    color: "#fff",
-    marginBottom: 20,
-    fontSize: 16,
+    borderColor: colors.border,
+    borderRadius: borderRadius.md,
+    padding: spacing.md,
+    color: colors.text,
+    marginBottom: spacing.lg,
+    ...typography.input,
   },
   passwordContainer: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#1a1a1a",
-    borderRadius: 12,
-    marginBottom: 20,
+    backgroundColor: colors.surface,
+    borderRadius: borderRadius.md,
+    marginBottom: spacing.lg,
     borderWidth: 1,
-    borderColor: "#333",
+    borderColor: colors.border,
   },
   passwordInput: {
     flex: 1,
-    padding: 16,
-    fontSize: 16,
-    color: "#fff",
+    padding: spacing.md,
+    color: colors.text,
+    ...typography.input,
   },
   eyeButton: {
-    padding: 16,
+    padding: spacing.md,
   },
   button: {
     width: "100%",
-    backgroundColor: "#4CAF50",
-    borderRadius: 12,
-    paddingVertical: 16, // Arttırıldı
+    backgroundColor: colors.primary,
+    borderRadius: borderRadius.md,
+    paddingVertical: spacing.md,
     alignItems: "center",
-    marginTop: 20,
-    shadowColor: "#000",
+    marginTop: spacing.md,
+    shadowColor: colors.primary,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 6,
     elevation: 8,
   },
   buttonDisabled: {
-    backgroundColor: "#666",
+    backgroundColor: colors.border,
     opacity: 0.6,
   },
   buttonText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "700", // Kontrast artırıldı
+    color: colors.text,
+    ...typography.button,
   },
 });
