@@ -14,7 +14,7 @@ import {
 } from "react-native";
 import { MessageCircle, Utensils, AlertCircle } from 'lucide-react-native';
 import type { Id } from "../../convex/_generated/dataModel";
-import { colors, spacing, typography, borderRadius } from "../utils/designSystem";
+import { colors, spacing, typography, borderRadius } from "../../utils/designSystem";
 
 export default function ChannelScreen() {
 
