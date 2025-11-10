@@ -14,6 +14,7 @@ import {
 import { api } from "../convex/_generated/api";
 import { Id } from "../convex/_generated/dataModel";
 import { Users, Bell, AlertCircle, MessageCircle } from 'lucide-react-native';
+import { colors, spacing, typography, borderRadius } from "../utils/designSystem";
 
 export default function HomeScreen() {
   const [userId, setUserId] = useState<Id<"users"> | null>(null);
@@ -182,7 +183,7 @@ export default function HomeScreen() {
           <Text style={styles.restaurantName}>{restaurant.name}</Text>
           <Text style={styles.restaurantCode}>Kod: {restaurant.inviteCode}</Text>
           <View style={styles.userInfo}>
-            <View style={[styles.roleBadge, { backgroundColor: "#4CAF50" }]}>
+            <View style={[styles.roleBadge, { backgroundColor: colors.success }]}>
               <Text style={styles.roleBadgeText}>{getRoleName(userRole || "waiter")}</Text>
             </View>
             <Text style={styles.userName}>{user.name}</Text>
@@ -207,7 +208,7 @@ export default function HomeScreen() {
           onPress={() => setActiveTab("home")}
         >
           <Text style={[styles.tabText, activeTab === "home" && styles.activeTabText]}>
-            <Users size={16} color={activeTab === "home" ? "#fff" : "#666"} /> Ekip
+            <Users size={16} color={activeTab === "home" ? colors.text : colors.textSecondary} /> Ekip
           </Text>
         </Pressable>
         <Pressable
@@ -215,7 +216,7 @@ export default function HomeScreen() {
           onPress={() => setActiveTab("notifications")}
         >
           <Text style={[styles.tabText, activeTab === "notifications" && styles.activeTabText]}>
-            <Bell size={16} color={activeTab === "notifications" ? "#fff" : "#666"} /> Bildirimler
+            <Bell size={16} color={activeTab === "notifications" ? colors.text : colors.textSecondary} /> Bildirimler
           </Text>
           {unreadCount !== undefined && unreadCount > 0 && (
             <View style={styles.tabBadge}>
@@ -249,9 +250,9 @@ export default function HomeScreen() {
                     {
                       backgroundColor:
                         member.role === "owner"
-                          ? "#4CAF50"
+                          ? colors.success
                           : member.role === "manager"
-                          ? "#2196F3"
+                          ? colors.primary
                           : member.role === "kitchen"
                           ? "#FF9800"
                           : member.role === "bar"
@@ -312,7 +313,7 @@ export default function HomeScreen() {
                   onPress={() => handleSendNotification(type)}
                 >
                   <Text style={styles.typeIcon}>
-                    {type.icon === 'message-circle' ? <MessageCircle size={16} color="#fff" /> : <AlertCircle size={16} color="#fff" />}
+                    {type.icon === 'message-circle' ? <MessageCircle size={16} color={colors.text} /> : <AlertCircle size={16} color={colors.text} />}
                   </Text>
                   <Text style={styles.typeTitle}>{type.title}</Text>
                 </Pressable>
@@ -326,46 +327,46 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#0a0a0a" },
+  container: { flex: 1, backgroundColor: colors.background },
   loadingContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
-  loadingText: { color: "#fff", fontSize: 16 },
+  loadingText: { color: colors.text, fontSize: 16 },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: spacing.lg,
     paddingTop: Platform.OS === "ios" ? 60 : 40,
-    paddingBottom: 20,
-    backgroundColor: "#111",
+    paddingBottom: spacing.lg,
+    backgroundColor: colors.surface,
     borderBottomWidth: 1,
-    borderBottomColor: "#222",
+    borderBottomColor: colors.border,
   },
   headerLeft: { flex: 1 },
-  restaurantName: { fontSize: 28, fontWeight: "800", color: "#fff", letterSpacing: -0.5 },
-  restaurantCode: { fontSize: 12, color: "#999", marginTop: 4, fontWeight: "500", letterSpacing: 0.5 },
-  userInfo: { flexDirection: "row", alignItems: "center", marginTop: 8, gap: 8 },
-  roleBadge: { paddingHorizontal: 10, paddingVertical: 4, borderRadius: 12 },
-  roleBadgeText: { color: "#fff", fontSize: 11, fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.5 },
-  userName: { fontSize: 14, color: "#999", fontWeight: "500" },
-  headerButtons: { flexDirection: "row", gap: 8, alignItems: "center" },
-  settingsButton: { paddingHorizontal: 12, paddingVertical: 8, backgroundColor: "#222", borderRadius: 8 },
-  backButton: { paddingHorizontal: 12, paddingVertical: 8, backgroundColor: "#222", borderRadius: 8 },
+  restaurantName: { ...typography.h2, color: colors.text, letterSpacing: -0.5 },
+  restaurantCode: { fontSize: 12, color: colors.textSecondary, marginTop: spacing.xs, fontWeight: "500", letterSpacing: 0.5 },
+  userInfo: { flexDirection: "row", alignItems: "center", marginTop: spacing.sm, gap: spacing.sm },
+  roleBadge: { paddingHorizontal: spacing.md, paddingVertical: spacing.xs, borderRadius: borderRadius.md },
+  roleBadgeText: { color: colors.text, fontSize: 11, fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.5 },
+  userName: { fontSize: 14, color: colors.textSecondary, fontWeight: "500" },
+  headerButtons: { flexDirection: "row", gap: spacing.sm, alignItems: "center" },
+  settingsButton: { paddingHorizontal: spacing.md, paddingVertical: spacing.sm, backgroundColor: colors.surface, borderRadius: borderRadius.sm },
+  backButton: { paddingHorizontal: spacing.md, paddingVertical: spacing.sm, backgroundColor: colors.surface, borderRadius: borderRadius.sm },
   buttonText: { fontSize: 18, fontWeight: "600" },
-  tabs: { flexDirection: "row", backgroundColor: "#111", borderBottomWidth: 1, borderBottomColor: "#222" },
-  tab: { flex: 1, paddingVertical: 16, alignItems: "center", position: "relative" },
-  activeTab: { borderBottomWidth: 3, borderBottomColor: "#4CAF50" },
-  tabText: { fontSize: 16, fontWeight: "600", color: "#666", flexDirection: "row", alignItems: "center", gap: 4 },
-  activeTabText: { color: "#fff" },
-  tabBadge: { position: "absolute", top: 8, right: "30%", backgroundColor: "#E91E63", borderRadius: 10, paddingHorizontal: 6, paddingVertical: 2, minWidth: 20, alignItems: "center" },
-  tabBadgeText: { color: "#fff", fontSize: 11, fontWeight: "700" },
+  tabs: { flexDirection: "row", backgroundColor: colors.surface, borderBottomWidth: 1, borderBottomColor: colors.border },
+  tab: { flex: 1, paddingVertical: spacing.md, alignItems: "center", position: "relative" },
+  activeTab: { borderBottomWidth: 3, borderBottomColor: colors.primary },
+  tabText: { ...typography.body, fontWeight: "600", color: colors.textSecondary, flexDirection: "row", alignItems: "center", gap: spacing.xs },
+  activeTabText: { color: colors.text },
+  tabBadge: { position: "absolute", top: spacing.sm, right: "30%", backgroundColor: colors.error, borderRadius: 10, paddingHorizontal: 6, paddingVertical: 2, minWidth: 20, alignItems: "center" },
+  tabBadgeText: { color: colors.text, fontSize: 11, fontWeight: "700" },
   scrollView: { flex: 1 },
-  membersContainer: { padding: 20, gap: 16 },
+  membersContainer: { padding: spacing.lg, gap: spacing.md },
   memberCard: {
-    backgroundColor: "#1a1a1a",
-    borderRadius: 16,
-    padding: 24,
+    backgroundColor: colors.surface,
+    borderRadius: borderRadius.lg,
+    padding: spacing.lg,
     borderWidth: 1,
-    borderColor: "#222",
+    borderColor: colors.border,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
@@ -373,49 +374,48 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   memberCardPressed: { backgroundColor: "#252525", transform: [{ scale: 0.98 }] },
-  memberCardHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 12 },
+  memberCardHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: spacing.md },
   memberName: {
-    fontSize: 22,
-    fontWeight: "700",
-    color: "#fff",
-    marginBottom: 6,
+    ...typography.h3,
+    color: colors.text,
+    marginBottom: spacing.xs,
   },
-  onlineDot: { width: 10, height: 10, borderRadius: 5, backgroundColor: "#4CAF50" },
-  memberRoleBadge: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: 8, alignSelf: "flex-start", marginBottom: 8 },
-  memberRoleText: { color: "#fff", fontSize: 12, fontWeight: "700", textTransform: "uppercase" },
-  memberEmail: { fontSize: 14, color: "#999" },
-  notificationsContainer: { padding: 20, gap: 12 },
+  onlineDot: { width: 10, height: 10, borderRadius: 5, backgroundColor: colors.success },
+  memberRoleBadge: { paddingHorizontal: spacing.md, paddingVertical: spacing.xs, borderRadius: borderRadius.sm, alignSelf: "flex-start", marginBottom: spacing.sm },
+  memberRoleText: { color: colors.text, fontSize: 12, fontWeight: "700", textTransform: "uppercase" },
+  memberEmail: { fontSize: 14, color: colors.textSecondary },
+  notificationsContainer: { padding: spacing.lg, gap: spacing.md },
   notificationCard: {
-    backgroundColor: "#1a1a1a",
-    borderRadius: 16,
-    padding: 20,
+    backgroundColor: colors.surface,
+    borderRadius: borderRadius.lg,
+    padding: spacing.md,
     borderWidth: 1,
-    borderColor: "#222",
+    borderColor: colors.border,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 6,
   },
-  unreadNotificationCard: { backgroundColor: "#252525", borderLeftWidth: 4, borderLeftColor: "#4CAF50" },
-  notificationHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 8 },
+  unreadNotificationCard: { backgroundColor: "#252525", borderLeftWidth: 4, borderLeftColor: colors.primary },
+  notificationHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: spacing.sm },
   notificationTitle: {
-    fontSize: 18,
+    ...typography.body,
     fontWeight: "700",
-    color: "#fff",
+    color: colors.text,
     flex: 1,
   },
-  unreadDot: { width: 8, height: 8, borderRadius: 4, backgroundColor: "#4CAF50" },
-  notificationFrom: { fontSize: 14, color: "#999", marginBottom: 4 },
-  notificationTime: { fontSize: 12, color: "#666" },
+  unreadDot: { width: 8, height: 8, borderRadius: 4, backgroundColor: colors.primary },
+  notificationFrom: { fontSize: 14, color: colors.textSecondary, marginBottom: spacing.xs },
+  notificationTime: { fontSize: 12, color: colors.placeholder },
   emptyState: { paddingVertical: 60, alignItems: "center" },
-  emptyText: { color: "#666", fontSize: 16, fontStyle: "italic" },
-  modalOverlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.85)", justifyContent: "center", alignItems: "center", padding: 20 },
-  modalContent: { backgroundColor: "#1a1a1a", borderRadius: 24, width: "100%", maxWidth: 400, padding: 24, borderWidth: 1, borderColor: "#333" },
-  modalTitle: { fontSize: 22, fontWeight: "800", color: "#fff", textAlign: "center", marginBottom: 8 },
-  modalSubtitle: { fontSize: 14, color: "#999", textAlign: "center", marginBottom: 24 },
-  notificationTypesGrid: { gap: 12 },
-  typeButton: { borderRadius: 12, padding: 16, alignItems: "center", flexDirection: "row", gap: 12 },
+  emptyText: { color: colors.textSecondary, fontSize: 16, fontStyle: "italic" },
+  modalOverlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.85)", justifyContent: "center", alignItems: "center", padding: spacing.lg },
+  modalContent: { backgroundColor: colors.surface, borderRadius: borderRadius.lg, width: "100%", maxWidth: 400, padding: spacing.lg, borderWidth: 1, borderColor: colors.border },
+  modalTitle: { ...typography.h3, color: colors.text, textAlign: "center", marginBottom: spacing.sm },
+  modalSubtitle: { fontSize: 14, color: colors.textSecondary, textAlign: "center", marginBottom: spacing.lg },
+  notificationTypesGrid: { gap: spacing.md },
+  typeButton: { borderRadius: borderRadius.md, padding: spacing.md, alignItems: "center", flexDirection: "row", gap: spacing.md },
   typeIcon: { fontSize: 24 },
-  typeTitle: { fontSize: 16, fontWeight: "700", color: "#fff", flex: 1 },
+  typeTitle: { ...typography.body, fontWeight: "700", color: colors.text, flex: 1 },
 });

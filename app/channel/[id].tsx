@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import { MessageCircle, Utensils, AlertCircle } from 'lucide-react-native';
 import type { Id } from "../../convex/_generated/dataModel";
+import { colors, spacing, typography, borderRadius } from "../utils/designSystem";
 
 export default function ChannelScreen() {
 
@@ -84,23 +85,24 @@ export default function ChannelScreen() {
   if (!channel || !messages || !userId) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#fff" />
+        <ActivityIndicator size="large" color={colors.primary} />
       </View>
     );
   }
 
   const getChannelIcon = (type: string) => {
+    const iconColor = colors.text;
     switch (type) {
       case "general":
-        return <MessageCircle size={24} color="#fff" />;
+        return <MessageCircle size={24} color={iconColor} />;
       case "kitchen":
-        return <Utensils size={24} color="#fff" />;
+        return <Utensils size={24} color={iconColor} />;
       case "service":
-        return <Utensils size={24} color="#fff" />;
+        return <Utensils size={24} color={iconColor} />;
       case "urgent":
-        return <AlertCircle size={24} color="#fff" />;
+        return <AlertCircle size={24} color={iconColor} />;
       default:
-        return <MessageCircle size={24} color="#fff" />;
+        return <MessageCircle size={24} color={iconColor} />;
     }
   };
 
@@ -198,7 +200,7 @@ export default function ChannelScreen() {
         <TextInput
           style={styles.input}
           placeholder="Mesaj yaz..."
-          placeholderTextColor="#666"
+          placeholderTextColor={colors.placeholder}
           value={message}
           onChangeText={setMessage}
           multiline
@@ -219,22 +221,22 @@ export default function ChannelScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor: colors.background,
   },
   loadingContainer: {
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor: colors.background,
     justifyContent: "center",
     alignItems: "center",
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 20,
-    paddingHorizontal: 16,
-    backgroundColor: "#111",
+    paddingVertical: spacing.lg,
+    paddingHorizontal: spacing.md,
+    backgroundColor: colors.surface,
     borderBottomWidth: 1,
-    borderBottomColor: "#222",
+    borderBottomColor: colors.border,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
@@ -242,28 +244,27 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   backButton: {
-    marginRight: 12,
+    marginRight: spacing.md,
   },
   backText: {
     fontSize: 32,
-    color: "#fff",
+    color: colors.text,
     fontWeight: "300",
   },
   channelIcon: {
     fontSize: 24,
-    marginRight: 8,
+    marginRight: spacing.sm,
   },
   channelName: {
-    fontSize: 24,
-    fontWeight: "700",
-    color: "#fff",
-    marginLeft: 12,
+    ...typography.h3,
+    color: colors.text,
+    marginLeft: spacing.md,
   },
   messagesList: {
-    padding: 16,
+    padding: spacing.md,
   },
   messageContainer: {
-    marginBottom: 16,
+    marginBottom: spacing.md,
     maxWidth: "80%",
   },
   ownMessage: {
@@ -276,117 +277,117 @@ const styles = StyleSheet.create({
   },
   senderName: {
     fontSize: 12,
-    color: "#666",
-    marginBottom: 4,
-    marginLeft: 12,
+    color: colors.textSecondary,
+    marginBottom: spacing.xs,
+    marginLeft: spacing.md,
   },
   messageBubble: {
-    borderRadius: 18,
-    paddingHorizontal: 16,
-    paddingVertical: 10,
+    borderRadius: borderRadius.lg,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
   },
   ownBubble: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.primary,
   },
   otherBubble: {
-    backgroundColor: "#222",
+    backgroundColor: colors.surface,
   },
   messageText: {
-    fontSize: 16,
+    ...typography.body,
   },
   ownText: {
-    color: "#000",
+    color: colors.text,
   },
   otherText: {
-    color: "#fff",
+    color: colors.text,
   },
   messageTime: {
     fontSize: 11,
-    color: "#666",
-    marginTop: 4,
-    marginHorizontal: 12,
+    color: colors.textSecondary,
+    marginTop: spacing.xs,
+    marginHorizontal: spacing.md,
   },
   quickMessagesContainer: {
-    backgroundColor: "#111",
+    backgroundColor: colors.surface,
     borderTopWidth: 1,
-    borderTopColor: "#222",
-    paddingVertical: 12,
+    borderTopColor: colors.border,
+    paddingVertical: spacing.md,
   },
   quickMessagesHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 16,
-    marginBottom: 8,
+    paddingHorizontal: spacing.md,
+    marginBottom: spacing.sm,
   },
   quickMessagesTitle: {
     fontSize: 14,
     fontWeight: "600",
-    color: "#fff",
+    color: colors.text,
   },
   closeButton: {
     fontSize: 20,
-    color: "#666",
+    color: colors.textSecondary,
   },
   quickMessagesList: {
-    paddingHorizontal: 16,
+    paddingHorizontal: spacing.md,
   },
   quickMessageButton: {
-    backgroundColor: "#222",
-    borderRadius: 16,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    marginRight: 8,
+    backgroundColor: colors.surface,
+    borderRadius: borderRadius.lg,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    marginRight: spacing.sm,
   },
   quickMessageText: {
-    color: "#fff",
+    color: colors.text,
     fontSize: 14,
   },
   inputContainer: {
     flexDirection: "row",
     alignItems: "flex-end",
-    padding: 16,
+    padding: spacing.md,
     borderTopWidth: 1,
-    borderTopColor: "#222",
-    backgroundColor: "#000",
+    borderTopColor: colors.border,
+    backgroundColor: colors.background,
   },
   quickButton: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: "#222",
+    backgroundColor: colors.surface,
     justifyContent: "center",
     alignItems: "center",
-    marginRight: 8,
+    marginRight: spacing.sm,
   },
   quickButtonText: {
     fontSize: 20,
   },
   input: {
     flex: 1,
-    backgroundColor: "#111",
+    backgroundColor: colors.surface,
     borderRadius: 20,
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    fontSize: 16,
-    color: "#fff",
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    ...typography.input,
+    color: colors.text,
     maxHeight: 100,
-    marginRight: 8,
+    marginRight: spacing.sm,
   },
   sendButton: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: "#fff",
+    backgroundColor: colors.primary,
     justifyContent: "center",
     alignItems: "center",
   },
   sendButtonDisabled: {
-    backgroundColor: "#333",
+    backgroundColor: colors.border,
   },
   sendButtonText: {
     fontSize: 24,
-    color: "#000",
+    color: colors.text,
     fontWeight: "bold",
   },
 });
