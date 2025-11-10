@@ -28,6 +28,51 @@ const showAlert = (title: string, message: string, buttons?: { text: string; onP
   }
 };
 
+const colors = {
+  background: "#121212",
+  primary: "#6200EE",
+  primaryVariant: "#3700B3",
+  secondary: "#03DAC6",
+  error: "#CF6679",
+  text: "#FFFFFF",
+  textSecondary: "#AFAFAF",
+  surface: "#1E1E1E",
+  border: "#2E2E2E",
+  placeholder: "#6E6E6E",
+  success: "#4CAF50",
+};
+
+const spacing = {
+  xs: 4,
+  sm: 8,
+  md: 16,
+  lg: 24,
+  xl: 40,
+};
+
+const typography = {
+  h1: {
+    fontSize: 36,
+    fontWeight: "800",
+  },
+  h2: {
+    fontSize: 18,
+  },
+  button: {
+    fontSize: 18,
+    fontWeight: "700",
+  },
+  input: {
+    fontSize: 16,
+  },
+};
+
+const borderRadius = {
+    sm: 8,
+    md: 12,
+    lg: 16,
+}
+
 export default function AuthScreen() {
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [name, setName] = useState("");
@@ -265,7 +310,7 @@ const styles = StyleSheet.create({
     marginBottom: spacing.sm,
   },
   subtitle: {
-    ...typography.body,
+    ...typography.h2,
     color: colors.textSecondary,
     marginBottom: spacing.xl,
   },
